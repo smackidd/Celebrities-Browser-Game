@@ -1,0 +1,50 @@
+:root {
+    --dark-grey: #464646;
+    --medium-grey: #495867;
+    --UCLA-blue: #577399;
+    --Beau-blue: #BDD5EA;
+    --Lavender: #E5E5F3;
+    --Sunset-orange: #FE5F55;
+    --teal: #049A9E;
+    --light-blue: #2A63B1;
+	--light-grey: #dadada;
+	--dark-blue: #0B2B53;
+	
+}
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font-family: 'Roboto', sans-serif;
+	font-size: 16px;
+	background: var(--light-grey);
+	margin: 20px;
+}
+
+#registration-box {
+    display: block;
+    position: relative;
+    top: 50px;
+    max-width: 700px;
+    height: 400px;
+    margin: 30px auto;
+    background-color: var(--medium-grey);
+    border-radius: 10px;
+}
+
+#registration-inner-box {
+    display: flex;
+    position: relative;
+    max-width: 660px;
+    height: 360px;
+    top: 20px;
+    margin: 20px;
+    background-color: var(--medium-grey);
+    box-shadow:  9px 9px 12px #42505e, 
+             -9px -9px 12px #506070;
+    border-radius: 9px;
+}
