@@ -6,7 +6,7 @@ var config = {
     server: 'localhost',
     database: 'Celebrities',
     options: {
-        database: 'AP'
+        database: 'Celebrities'
     },
 };
 //connect to your database, node module export format

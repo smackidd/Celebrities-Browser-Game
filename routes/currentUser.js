@@ -1,28 +1,19 @@
 const express = require('express'); 
 const router = express.Router();
 const bodyParser = require('body-parser');
-const query = require('../utils/queries');
+const executeQuery = require('../utils/queries');
+var sql = require('mssql');
 
 
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 
 
-router.post('/currentUser', urlencodedParser, (req, res) => {
+router.post('/register', urlencodedParser, (req, res) => {
     
-    //const ID = 1;
-    // user_data.users[0].newID += 1;
-    // let ID = user_data.users[0].newID
-
-    // owner/coworker radio buttons verification and values
-    // if (req.body.owner == undefined && req.body.coworker == undefined) {
-    //     res.end("please select a usertype!");
-    // } else {
-    //     if (req.body.owner = 'on') owner = true;
-    //     else owner = false;
-    // }
     
-    const currentUser = {
+    
+    var currentUser = {
         username: req.body.username,
         password: req.body.password
     };
@@ -34,9 +25,57 @@ router.post('/currentUser', urlencodedParser, (req, res) => {
     // data = JSON.stringify(currentUser);
     // fs.writeFile('./currentUser.json', data, ()=> console.log('succesfully wrote to currentUser.json'))
     var mysql = "INSERT INTO  Users (Username, Pass) VALUES('" + currentUser.username +"','" + currentUser.password +"')";
-    query(mysql);
-    
+    //query(res, mysql);
+    var sendQueryResults = async function (res, query) {
+        try {
+            var recordset = await executeQuery(query);
+            console.log('recordset', await recordset);
+            res.send({
+                success: true,
+                msg: "successfully registered user",
+                currentUser: recordset
+            });
+        }
+        catch (err) {
+            return {
+                success: false,
+                error: err
+            };
+        }
+    };
+    sendQueryResults(res, mysql);
+    console.log(mysql)
     res.redirect('http://localhost:3002/setup');    
+});
+
+router.post('/login', urlencodedParser, (req, res) => {
+    var currentUser = {
+        username: req.body.username,
+        password: req.body.password
+    };
+    console.log(currentUser);
+
+    var mysql = "SELECT UserID, Username FROM Users WHERE Username = '" + currentUser.username +"' AND Pass = '" + currentUser.password +"';";
+    //var user = [];
+
+    
+
+    async function sendQuery(){
+        config.connect(function(err) {
+            if (err) throw err;
+            con.query(mysql, function (err, result, fields) {
+              if (err) throw err;
+              console.log(result);
+              res.redirect('http://localhost:3002/setup');
+            });
+        });
+        
+    }
+    sendQuery();
+    // var user = query(res, mysql);
+    // console.log('user', user);
+    //res.send(user);
+    //res.redirect('http://localhost:3002/setup');  
 });
 
 module.exports = router;

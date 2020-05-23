@@ -1,22 +1,27 @@
 var db = require('./db');
 
 var executeQuery = async function (query) {
-  var connectionPool = await db;
-  console.log(query);
-  var result = await connectionPool.request().query(query);
-  return result.recordset;
+    var connectionPool = await db;
+    var result = await connectionPool.request().query(query);
+    //console.log('result', json(result));
+    return result.recordset;
 }
 //send json formatted record set as a response
-var sendQueryResults = async function (query) {
-  try {
-   
-   var recordset = await executeQuery(query);
-   console.log(json(recordset));
-   return recordset;
-  }
-  catch (err) {
-    return err;
-  }
-};
+// var sendQueryResults = async function (res, query) {
+//   try {
+//     var recordset = await executeQuery(query);
+//     //console.log('recordset', recordset);
+//     res.send({
+//         success: true,
 
-module.exports = sendQueryResults;
+//     });
+//   }
+//   catch (err) {
+//     return {
+//         success: false,
+//         error: err
+//     };
+//   }
+// };
+
+module.exports = executeQuery;
