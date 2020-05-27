@@ -2,6 +2,13 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
+////
+//
+// add Joi validation
+// make usernames unique
+//
+////
+
 export default class UserRegister extends Component {
     constructor(props) {
         super(props);
